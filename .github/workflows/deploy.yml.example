@@ -1,0 +1,7 @@
+# Later we will configure this for Azure VM deployment.
+# Do not use this file yet.
+#
+# Planned flow:
+# GitHub push -> tests -> Docker build -> SSH to Azure VM -> deploy container
+#
+# GitHub Secrets will hold deployment credentials.

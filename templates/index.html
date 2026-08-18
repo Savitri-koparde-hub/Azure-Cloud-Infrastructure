@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vision Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header class="hero">
+            <div>
+                <p class="eyebrow">PERSONAL VISION BOARD</p>
+                <h1>Dream it. Plan it. <span>Build it.</span></h1>
+                <p class="subtitle">Keep your goals visible and turn your ideas into action.</p>
+            </div>
+            <a class="button" href="{{ url_for('add_vision') }}">+ Add Vision</a>
+        </header>
+
+        {% if visions %}
+        <section class="grid">
+            {% for vision in visions %}
+            <article class="card">
+                {% if vision["image_url"] %}
+                    <img src="{{ vision['image_url'] }}" alt="{{ vision['title'] }}">
+                {% else %}
+                    <div class="image-placeholder">✨</div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="card-top">
+                        <h2>{{ vision["title"] }}</h2>
+                        <span class="status {{ vision['status']|lower|replace(' ', '-') }}">
+                            {{ vision["status"] }}
+                        </span>
+                    </div>
+                    <p>{{ vision["description"] }}</p>
+                    <div class="actions">
+                        {% if vision["status"] != "Completed" %}
+                        <form method="post" action="{{ url_for('complete_vision', vision_id=vision['id']) }}">
+                            <button class="small-button complete" type="submit">Mark Complete</button>
+                        </form>
+                        {% endif %}
+                        <form method="post" action="{{ url_for('delete_vision', vision_id=vision['id']) }}"
+                              onsubmit="return confirm('Delete this vision?');">
+                            <button class="small-button delete" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+        {% else %}
+        <section class="empty">
+            <div class="empty-icon">🌱</div>
+            <h2>Your board is empty</h2>
+            <p>Add your first goal and start building your vision.</p>
+            <a class="button" href="{{ url_for('add_vision') }}">Create First Vision</a>
+        </section>
+        {% endif %}
+
+        <footer>
+            <a href="{{ url_for('health') }}">System Health</a>
+            <span>•</span>
+            <span>Python + Flask + SQLite</span>
+        </footer>
+    </main>
+</body>
+</html>

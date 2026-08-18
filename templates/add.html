@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vision</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container narrow">
+        <a class="back" href="{{ url_for('home') }}">← Back to Vision Board</a>
+        <section class="form-card">
+            <p class="eyebrow">NEW GOAL</p>
+            <h1>Add a Vision</h1>
+            <p class="subtitle">Give your next goal a place on the board.</p>
+
+            <form method="post">
+                <label for="title">Vision title</label>
+                <input id="title" name="title" required placeholder="e.g. Become a Cloud Engineer">
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5"
+                          placeholder="What does this vision mean to you?"></textarea>
+
+                <label for="image_url">Image URL <span>(optional)</span></label>
+                <input id="image_url" name="image_url" type="url"
+                       placeholder="https://example.com/image.jpg">
+
+                <button class="button full" type="submit">Add to Vision Board</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
